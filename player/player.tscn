@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://byque4w54oowj"]
+
+[ext_resource type="Script" uid="uid://dl20fgu0afmne" path="res://player/player.gd" id="1_oul6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oul6g"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
+size = Vector2(8, 1.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1dw6"]
+size = Vector2(1.5, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yw30f"]
+size = Vector2(8, 1.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjkh3"]
+size = Vector2(1.5, 8)
+
+[node name="Player" type="CharacterBody2D" unique_id=664991562]
+collision_layer = 128
+script = ExtResource("1_oul6g")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=24449197]
+offset_top = -8.0
+offset_right = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=837366985]
+position = Vector2(4, -4)
+shape = SubResource("RectangleShape2D_oul6g")
+
+[node name="GroundDetectionAreaDown" type="Area2D" parent="." unique_id=1237715821]
+position = Vector2(4, 0)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionAreaDown" unique_id=690177871]
+shape = SubResource("RectangleShape2D_rkbax")
+
+[node name="GroundDetectionAreaRight" type="Area2D" parent="." unique_id=665838150]
+position = Vector2(8, -4)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionAreaRight" unique_id=189415555]
+shape = SubResource("RectangleShape2D_g1dw6")
+
+[node name="GroundDetectionAreaUp" type="Area2D" parent="." unique_id=1611300104]
+position = Vector2(4, -8)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionAreaUp" unique_id=1657414603]
+shape = SubResource("RectangleShape2D_yw30f")
+
+[node name="GroundDetectionAreaLeft" type="Area2D" parent="." unique_id=1155927756]
+position = Vector2(0, -4)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionAreaLeft" unique_id=771831546]
+shape = SubResource("RectangleShape2D_qjkh3")

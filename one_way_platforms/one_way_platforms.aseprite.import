@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dsk3i2su55wch"
+path="res://.godot/imported/one_way_platforms.aseprite-225f0e7a288545da9467855b6a650504.res"
+
+[deps]
+
+source_file="res://one_way_platforms/one_way_platforms.aseprite"
+dest_files=["res://.godot/imported/one_way_platforms.aseprite-225f0e7a288545da9467855b6a650504.res"]
+
+[params]
+
