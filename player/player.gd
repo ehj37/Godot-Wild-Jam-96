@@ -12,9 +12,11 @@ const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
 		leg_state = new_value
 		_update_legs()
 
+var _flipped: bool = false
 var _charging: bool = false
 var _pressed_movement_inputs: Array[String]
 
+@onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _legs_down: PlayerLegs = $LegsDown
 @onready var _legs_up: PlayerLegs = $LegsUp
@@ -54,9 +56,6 @@ func _physics_process(delta: float) -> void:
 			push_error("Unhandled movement input.")
 
 	if _charging:
-		# TODO: Account for facing left vs. right at start of charge.
-		# Consider orientation implementation. Locked by charge.
-
 		var owned_legs: Array[PlayerLegs] = _all_legs.slice(0, leg_state)
 		var charge_direction: Vector2
 		var charging_legs: PlayerLegs
@@ -66,13 +65,21 @@ func _physics_process(delta: float) -> void:
 			if !owned_legs.has(candidate_legs):
 				break
 
-			var next_legs: PlayerLegs = _all_legs[(candidate_legs_i + 1) % total_legs_count]
+			var next_legs: PlayerLegs
+			if _flipped:
+				next_legs = _all_legs[wrapi(candidate_legs_i - 1, 0, total_legs_count)]
+			else:
+				next_legs = _all_legs[(candidate_legs_i + 1) % total_legs_count]
+
 			if owned_legs.has(next_legs) && next_legs.on_surface():
 				continue
 
 			if candidate_legs.on_surface():
 				charging_legs = candidate_legs
 				charge_direction = Vector2.from_angle(charging_legs.rotation)
+				if _flipped:
+					charge_direction = -charge_direction
+
 				break
 
 		if charging_legs:
@@ -103,14 +110,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		if has_overlapping_down:
 			velocity.x = input_movement_direction.x * _BASE_MOVE_SPEED
+			if !input_movement_direction.is_zero_approx():
+				_update_flipped(input_movement_direction.x < 0.0)
 		else:
 			if !input_movement_direction.is_zero_approx():
 				# Could be moving in the same direction as the charge was, but
 				# _BASE_MOVE_SPEED is slower than _CHARGE_MOVE_SPEED, so we shouldn't
 				# overwrite in that case.
 				if input_movement_direction.x > 0:
+					_update_flipped(false)
 					velocity.x = max(input_movement_direction.x * _BASE_MOVE_SPEED, velocity.x)
 				else:
+					_update_flipped(true)
 					velocity.x = min(input_movement_direction.x * _BASE_MOVE_SPEED, velocity.x)
 			velocity.y += _GRAVITY * delta
 
@@ -131,6 +142,17 @@ func _ready() -> void:
 func _set_legs_to_idle(legs_list: Array[PlayerLegs]) -> void:
 	for legs: PlayerLegs in legs_list:
 		legs.play_idle()
+
+
+# TODO: Just use a setter instead?
+func _update_flipped(value: bool) -> void:
+	if value == _flipped:
+		return
+
+	_flipped = value
+	_sprite.flip_h = _flipped
+	for legs: PlayerLegs in _all_legs:
+		legs.sprite.flip_h = _flipped
 
 
 func _update_legs() -> void:

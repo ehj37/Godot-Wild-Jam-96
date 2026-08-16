@@ -2,6 +2,7 @@ class_name PlayerLegs
 
 extends CollisionPolygon2D
 
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var _ground_detection_area: Area2D = $GroundDetectionArea
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
