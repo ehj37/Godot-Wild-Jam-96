@@ -33,6 +33,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
+[gui]
+
+theme/default_font_subpixel_positioning=0
+
 [input]
 
 move_left={

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d2324njgj55vx" path="res://one_way_platforms/one_way_platforms.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://0jtgd1u6w5m7" path="res://moving_platform/moving_platform.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ggwktjcvgd26" path="res://pressure_button/pressure_button.tscn" id="5_lquwl"]
+[ext_resource type="FontFile" uid="uid://cm0y8hjk01myl" path="res://arne.png" id="6_7mycd"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -44,11 +45,13 @@ position = Vector2(128, 64)
 [node name="MovingPlatform" parent="." unique_id=117322211 instance=ExtResource("4_1bvp3")]
 position = Vector2(144, 24)
 curve = SubResource("Curve2D_1bvp3")
+making_positive_progress = true
 initial_progress_ratio = 0.5
 
 [node name="MovingPlatform2" parent="." unique_id=717343521 instance=ExtResource("4_1bvp3")]
 position = Vector2(144, -120)
 curve = SubResource("Curve2D_lquwl")
+making_positive_progress = true
 
 [node name="PressureButtonStickyPlatform" parent="." unique_id=1137678055 instance=ExtResource("5_lquwl")]
 position = Vector2(0, 32)
@@ -58,6 +61,31 @@ position = Vector2(96, -88)
 curve = SubResource("Curve2D_7mycd")
 movement_mode = 1
 making_positive_progress = false
+
+[node name="Label" type="Label" parent="." unique_id=1105817797]
+offset_left = -280.0
+offset_top = -152.0
+offset_right = 176.0
+offset_bottom = -110.0
+theme_override_fonts/font = ExtResource("6_7mycd")
+theme_override_font_sizes/font_size = 6
+text = "check out my cool new invention.
+i call it a \"ladder\"
+
+unfortunately, my next invention of \"arms\"
+isn't ready, so i cannot use it."
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1884242553]
+clip_contents = false
+offset_left = -272.0
+offset_top = -104.0
+offset_right = -16.0
+offset_bottom = -48.0
+theme_override_fonts/normal_font = ExtResource("6_7mycd")
+bbcode_enabled = true
+text = "Fish [color=#ff0000]wish[/color] [tornado radius=5.0f freq=5.0f]dish[/tornado]
+"
+scroll_active = false
 
 [connection signal="pressed" from="PressureButton" to="MovingPlatform" method="stop"]
 [connection signal="released" from="PressureButton" to="MovingPlatform" method="start"]
