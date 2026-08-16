@@ -1,28 +1,31 @@
 extends CharacterBody2D
 
 const _BASE_MOVE_SPEED: float = 50.0
-const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 3.0
+const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 2.0
 const _GRAVITY: float = 800.0
 const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
 
 var _charging: bool = false
 var _pressed_movement_inputs: Array[String]
 
-@onready var _color_rect: ColorRect = $ColorRect
-@onready var _ground_detection_area_down: Area2D = $GroundDetectionAreaDown
-@onready var _ground_detection_area_right: Area2D = $GroundDetectionAreaRight
-@onready var _ground_detection_area_up: Area2D = $GroundDetectionAreaUp
-@onready var _ground_detection_area_left: Area2D = $GroundDetectionAreaLeft
+@onready var _animation_player: AnimationPlayer = $AnimationPlayer
+@onready var _legs_down: PlayerLegs = $LegsDown
+@onready var _legs_up: PlayerLegs = $LegsUp
+@onready var _legs_left: PlayerLegs = $LegsLeft
+@onready var _legs_right: PlayerLegs = $LegsRight
+@onready var _all_legs: Array[PlayerLegs] = [_legs_down, _legs_up, _legs_left, _legs_right]
 
 
 func _physics_process(delta: float) -> void:
-	var has_overlapping_down: bool = _ground_detection_area_down.has_overlapping_bodies()
+	var has_overlapping_down: bool = _legs_down.on_surface()
 
 	if Input.is_action_just_pressed("charge"):
 		if _charging:
 			_charging = false
+			_set_legs_to_idle(_all_legs)
 		else:
 			if has_overlapping_down:
+				_animation_player.play("charge")
 				_charging = true
 			else:
 				# TODO: Play a sound to show that the input was recognized but
@@ -49,23 +52,35 @@ func _physics_process(delta: float) -> void:
 			push_error("Unhandled movement input.")
 
 	if _charging:
-		_color_rect.color = Color.RED
-
-		var has_overlapping_left: bool = _ground_detection_area_left.has_overlapping_bodies()
-		var has_overlapping_right: bool = _ground_detection_area_right.has_overlapping_bodies()
-		var has_overlapping_up: bool = _ground_detection_area_up.has_overlapping_bodies()
+		# var has_overlapping_left: bool = _legs_left.on_surface()
+		var has_overlapping_right: bool = _legs_right.on_surface()
+		var has_overlapping_up: bool = _legs_up.on_surface()
 
 		# TODO: Account for facing left vs. right at start of charge.
 		# Consider orientation implementation. Locked by charge.
 
 		var charge_direction: Vector2
+		var charging_legs: PlayerLegs
 		# NOTE: Logic is for bottom, right, and top legs.
 		if has_overlapping_down && !has_overlapping_right:
 			charge_direction = Vector2.RIGHT
+			charging_legs = _legs_down
 		elif has_overlapping_right && !has_overlapping_up:
 			charge_direction = Vector2.UP
-		elif has_overlapping_up && !has_overlapping_left:
+			charging_legs = _legs_right
+		elif has_overlapping_up:
 			charge_direction = Vector2.LEFT
+			charging_legs = _legs_up
+
+		if charging_legs:
+			_set_legs_to_idle(
+				_all_legs.filter(func(l: PlayerLegs) -> bool: return l != charging_legs)
+			)
+			charging_legs.play_charge()
+		else:
+			# Churn the bottom legs if there aren't any others that can do anything.
+			_set_legs_to_idle(_all_legs.filter(func(l: PlayerLegs) -> bool: return l != _legs_down))
+			_legs_down.play_charge()
 
 		if charge_direction.is_zero_approx():
 			if !input_movement_direction.is_zero_approx():
@@ -80,7 +95,6 @@ func _physics_process(delta: float) -> void:
 			velocity = move_direction * _CHARGE_MOVE_SPEED
 
 	else:
-		_color_rect.color = Color.WHITE
 		if has_overlapping_down:
 			velocity.x = input_movement_direction.x * _BASE_MOVE_SPEED
 		else:
@@ -94,4 +108,16 @@ func _physics_process(delta: float) -> void:
 					velocity.x = min(input_movement_direction.x * _BASE_MOVE_SPEED, velocity.x)
 			velocity.y += _GRAVITY * delta
 
+		if velocity.x != 0:
+			_animation_player.play("run")
+			_legs_down.play_run()
+		else:
+			_animation_player.play("idle")
+			_legs_down.play_idle()
+
 	move_and_slide()
+
+
+func _set_legs_to_idle(legs_list: Array[PlayerLegs]) -> void:
+	for legs: PlayerLegs in legs_list:
+		legs.play_idle()

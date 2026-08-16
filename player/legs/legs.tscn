@@ -1,0 +1,112 @@
+[gd_scene format=4 uid="uid://581titih5wnt"]
+
+[ext_resource type="Script" uid="uid://cc34f7n6q6e5g" path="res://player/legs/legs.gd" id="1_8b62s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lc8"]
+size = Vector2(6, 2)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_8b62s"]
+_data = PackedByteArray("AAADAAUAAAABAAAAQAAAADAAAABQAAAAUklGRkgAAABXRUJQVlA4TDwAAAAvP8ALEA8QEfMfgnEkKW4W6pz8hkAohEbu8u4f0f8JwGdb8xQK4UYIfpRt5WmkpRBXkMkFv8tkadV063o=")
+size_override = Vector2(64, 48)
+
+[sub_resource type="Animation" id="Animation_8b62s"]
+length = 0.32
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_q3lc8"]
+length = 0.08
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [9]
+}
+
+[sub_resource type="Animation" id="Animation_uwlhg"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aowyd"]
+_data = {
+&"charge": SubResource("Animation_8b62s"),
+&"idle": SubResource("Animation_q3lc8"),
+&"run": SubResource("Animation_uwlhg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8b62s"]
+size = Vector2(6, 0.5)
+
+[node name="Legs" type="CollisionShape2D" unique_id=1195055465]
+shape = SubResource("RectangleShape2D_q3lc8")
+script = ExtResource("1_8b62s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2075797054]
+texture_filter = 1
+position = Vector2(0, -4)
+texture = SubResource("PortableCompressedTexture2D_8b62s")
+hframes = 4
+vframes = 3
+frame = 9
+metadata/_aseprite_wizard_interface_config_ = {
+"output_section": false,
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://player/legs/legs.aseprite",
+"source_uid": 3456399932104333124
+}
+metadata/_aseprite_wizard_source_file_hash_ = "b6b720c4800e8e54779e17b130dde0b4"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2117556021]
+libraries/ = SubResource("AnimationLibrary_aowyd")
+
+[node name="GroundDetectionArea" type="Area2D" parent="." unique_id=746723867]
+position = Vector2(0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionArea" unique_id=2036627877]
+shape = SubResource("RectangleShape2D_8b62s")
