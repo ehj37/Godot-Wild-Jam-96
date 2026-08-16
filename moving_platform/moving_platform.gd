@@ -1,29 +1,77 @@
+@tool
+
 extends Path2D
+
+# Describes what happens when the progress ratio hits 0.0 or 1.0
+enum MovementMode { BACK_AND_FORTH, STICKY }
 
 const _SPEED: float = 30.0
 
-var _making_positive_progress: bool = true
+@export var movement_mode: MovementMode = MovementMode.BACK_AND_FORTH
+@export var is_moving: bool = true
+@export var making_positive_progress: bool = true
+@export_range(0, 1.0) var initial_progress_ratio: float = 0.0:
+	set(new_value):
+		initial_progress_ratio = new_value
+		if Engine.is_editor_hint():
+			var path_follow: PathFollow2D = $PathFollow2D
+			path_follow.progress_ratio = initial_progress_ratio
+
 var _progress_ratio_speed: float
 
 @onready var _path_follow: PathFollow2D = $PathFollow2D
 
 
+func stop() -> void:
+	is_moving = false
+
+
+func start() -> void:
+	is_moving = true
+
+
+func flip_direction() -> void:
+	making_positive_progress = !making_positive_progress
+
+
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
 	if !curve:
+		if is_moving:
+			push_warning(
+				(
+					"Moving platform at "
+					+ str(global_position)
+					+ " has is_moving as true, but has no curve."
+				)
+			)
+
+		return
+
+	if !is_moving:
 		return
 
 	var progress_ratio_update: float = _progress_ratio_speed * delta
-	if !_making_positive_progress:
+	if !making_positive_progress:
 		progress_ratio_update = -progress_ratio_update
 
 	var updated_progress_ratio: float = _path_follow.progress_ratio + progress_ratio_update
-	# Flip direction
-	if _making_positive_progress && updated_progress_ratio > 1.0:
-		_making_positive_progress = false
-		updated_progress_ratio = 1.0 - fmod(updated_progress_ratio, 1.0)
-	elif !_making_positive_progress && updated_progress_ratio < 0.0:
-		_making_positive_progress = true
-		updated_progress_ratio = -fmod(updated_progress_ratio, 1.0)
+
+	if movement_mode == MovementMode.BACK_AND_FORTH:
+		# Flip direction
+		if making_positive_progress && updated_progress_ratio > 1.0:
+			making_positive_progress = false
+			updated_progress_ratio = 1.0 - fmod(updated_progress_ratio, 1.0)
+		elif !making_positive_progress && updated_progress_ratio < 0.0:
+			making_positive_progress = true
+			updated_progress_ratio = -fmod(updated_progress_ratio, 1.0)
+	elif movement_mode == MovementMode.STICKY:
+		if making_positive_progress:
+			updated_progress_ratio = min(updated_progress_ratio, 1.0)
+		else:
+			updated_progress_ratio = max(updated_progress_ratio, 0.0)
 
 	_path_follow.progress_ratio = updated_progress_ratio
 
@@ -32,3 +80,4 @@ func _ready() -> void:
 	if curve:
 		var curve_length: float = curve.get_baked_length()
 		_progress_ratio_speed = _SPEED / curve_length
+		_path_follow.progress_ratio = initial_progress_ratio

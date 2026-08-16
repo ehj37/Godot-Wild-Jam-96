@@ -1,0 +1,53 @@
+[gd_scene format=4 uid="uid://ggwktjcvgd26"]
+
+[ext_resource type="Script" uid="uid://dfj0aymqkg8tv" path="res://pressure_button/pressure_button.gd" id="1_ktwh6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktwh6"]
+size = Vector2(6, 4)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ktwh6"]
+_data = PackedByteArray("AAADAAUAAAABAAAAEAAAAAgAAABiAAAAUklGRloAAABXRUJQVlA4TE4AAAAvD8ABEC9AkG0bKsYucAVt2zClVSalf7bRGEG2bagYu8DnPwAvM06X66AotpUK0ADSwKHD2/tr8PqneSsbRPR/Auz7eq/LyHSZVSEEQRA=")
+size_override = Vector2(16, 8)
+
+[node name="PressureButton" type="Node2D" unique_id=173146624]
+script = ExtResource("1_ktwh6")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1713164385]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1497883449]
+position = Vector2(4, -2)
+shape = SubResource("RectangleShape2D_ktwh6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1529046099]
+texture_filter = 1
+position = Vector2(4, -4)
+texture = SubResource("PortableCompressedTexture2D_ktwh6")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://pressure_button/pressure_button.aseprite",
+"source_uid": 6709707242143203014
+}
+metadata/_aseprite_wizard_source_file_hash_ = "fee37b33fa268060b96da0f9036872b8"
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_exited"]

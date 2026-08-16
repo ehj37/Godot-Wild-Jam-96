@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c2uh5scd2db55"
+path="res://.godot/imported/pressure_button.aseprite-5eb833f5df38fe15038a2ac449132df6.res"
+
+[deps]
+
+source_file="res://pressure_button/pressure_button.aseprite"
+dest_files=["res://.godot/imported/pressure_button.aseprite-5eb833f5df38fe15038a2ac449132df6.res"]
+
+[params]
+
