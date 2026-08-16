@@ -1,9 +1,16 @@
 extends CharacterBody2D
 
+enum LegState { NONE, DOWN, DOWN_RIGHT, DOWN_RIGHT_UP, DOWN_RIGHT_UP_LEFT }
+
 const _BASE_MOVE_SPEED: float = 50.0
 const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 2.0
 const _GRAVITY: float = 600.0
 const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
+
+@export var leg_state: LegState:
+	set(new_value):
+		leg_state = new_value
+		_update_legs()
 
 var _charging: bool = false
 var _pressed_movement_inputs: Array[String]
@@ -13,13 +20,13 @@ var _pressed_movement_inputs: Array[String]
 @onready var _legs_up: PlayerLegs = $LegsUp
 @onready var _legs_left: PlayerLegs = $LegsLeft
 @onready var _legs_right: PlayerLegs = $LegsRight
-@onready var _all_legs: Array[PlayerLegs] = [_legs_down, _legs_up, _legs_left, _legs_right]
+@onready var _all_legs: Array[PlayerLegs] = [_legs_down, _legs_right, _legs_up, _legs_left]
 
 
 func _physics_process(delta: float) -> void:
 	var has_overlapping_down: bool = _legs_down.on_surface()
 
-	if Input.is_action_just_pressed("charge"):
+	if Input.is_action_just_pressed("charge") && leg_state != LegState.NONE:
 		if _charging:
 			_charging = false
 			_set_legs_to_idle(_all_legs)
@@ -47,25 +54,26 @@ func _physics_process(delta: float) -> void:
 			push_error("Unhandled movement input.")
 
 	if _charging:
-		# var has_overlapping_left: bool = _legs_left.on_surface()
-		var has_overlapping_right: bool = _legs_right.on_surface()
-		var has_overlapping_up: bool = _legs_up.on_surface()
-
 		# TODO: Account for facing left vs. right at start of charge.
 		# Consider orientation implementation. Locked by charge.
 
+		var owned_legs: Array[PlayerLegs] = _all_legs.slice(0, leg_state)
 		var charge_direction: Vector2
 		var charging_legs: PlayerLegs
-		# NOTE: Logic is for bottom, right, and top legs.
-		if has_overlapping_down && !has_overlapping_right:
-			charge_direction = Vector2.RIGHT
-			charging_legs = _legs_down
-		elif has_overlapping_right && !has_overlapping_up:
-			charge_direction = Vector2.UP
-			charging_legs = _legs_right
-		elif has_overlapping_up:
-			charge_direction = Vector2.LEFT
-			charging_legs = _legs_up
+		var total_legs_count: int = _all_legs.size()
+		for candidate_legs_i: int in total_legs_count:
+			var candidate_legs: PlayerLegs = _all_legs[candidate_legs_i]
+			if !owned_legs.has(candidate_legs):
+				break
+
+			var next_legs: PlayerLegs = _all_legs[(candidate_legs_i + 1) % total_legs_count]
+			if owned_legs.has(next_legs) && next_legs.on_surface():
+				continue
+
+			if candidate_legs.on_surface():
+				charging_legs = candidate_legs
+				charge_direction = Vector2.from_angle(charging_legs.rotation)
+				break
 
 		if charging_legs:
 			_set_legs_to_idle(
@@ -116,6 +124,25 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func _ready() -> void:
+	_update_legs()
+
+
 func _set_legs_to_idle(legs_list: Array[PlayerLegs]) -> void:
 	for legs: PlayerLegs in legs_list:
 		legs.play_idle()
+
+
+func _update_legs() -> void:
+	var owned_legs: Array[PlayerLegs] = _all_legs.slice(0, leg_state)
+	var unowned_legs: Array[PlayerLegs] = _all_legs.filter(
+		func(l: PlayerLegs) -> bool: return !owned_legs.has(l)
+	)
+
+	for legs: PlayerLegs in owned_legs:
+		legs.visible = true
+		legs.disabled = false
+
+	for legs: PlayerLegs in unowned_legs:
+		legs.visible = false
+		legs.disabled = true
