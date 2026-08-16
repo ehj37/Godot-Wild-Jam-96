@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dl20fgu0afmne" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://581titih5wnt" path="res://player/legs/legs.tscn" id="2_rkbax"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
-radius = 4.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
+size = Vector2(6, 6)
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_rkbax"]
 _data = PackedByteArray("AAADAAUAAAABAAAAIAAAABAAAABMAAAAUklGRkQAAABXRUJQVlA4TDcAAAAvH8ADEB8gEEjyB1lzjfmP+Q/wAooiSY1GB1f+mMBOREQQIjEQFET0fwLYOwWd8A5cgSno/LEWAA==")
@@ -71,7 +71,7 @@ script = ExtResource("1_oul6g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=837366985]
 position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_rkbax")
+shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2046026144]
 texture_filter = 1
@@ -108,10 +108,12 @@ libraries/ = SubResource("AnimationLibrary_qjkh3")
 
 [node name="LegsDown" parent="." unique_id=1423455002 instance=ExtResource("2_rkbax")]
 position = Vector2(0, -1)
+polygon = PackedVector2Array(-3, 1, 3, 1, 3, -1, -3, -1)
 
 [node name="LegsUp" parent="." unique_id=1193746950 instance=ExtResource("2_rkbax")]
 position = Vector2(0, -9)
 rotation = 3.1415927
+polygon = PackedVector2Array(3, -1.0000005, -4.9, -1, -2.9999998, 1, 3.0000002, 1)
 
 [node name="LegsLeft" parent="." unique_id=390893446 instance=ExtResource("2_rkbax")]
 visible = false
@@ -119,5 +121,6 @@ position = Vector2(-4, -4.5234084)
 rotation = -1.5707964
 
 [node name="LegsRight" parent="." unique_id=1200978980 instance=ExtResource("2_rkbax")]
-position = Vector2(4, -4.5234084)
+position = Vector2(4, -5)
 rotation = -1.5707964
+polygon = PackedVector2Array(-3, 0.9, 3, 0.9, 3, -0.99999976, -5, -1)

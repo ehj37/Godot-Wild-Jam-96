@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://0jtgd1u6w5m7"]
+
+[ext_resource type="Script" uid="uid://y0a7j6cm63nh" path="res://moving_platform/moving_platform.gd" id="1_perj1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hueig"]
+size = Vector2(8, 24)
+
+[node name="MovingPlatform" type="Path2D" unique_id=117322211]
+script = ExtResource("1_perj1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=261023387]
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D" unique_id=355443938]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=1452475796]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1051296389]
+position = Vector2(4, -12)
+shape = SubResource("RectangleShape2D_hueig")
+
+[node name="ColorRect" type="ColorRect" parent="AnimatableBody2D" unique_id=892648799]
+offset_top = -24.0
+offset_right = 8.0

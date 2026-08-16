@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cc34f7n6q6e5g" path="res://player/legs/legs.gd" id="1_8b62s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3lc8"]
-size = Vector2(6, 2)
-
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_8b62s"]
 _data = PackedByteArray("AAADAAUAAAABAAAAQAAAADAAAABQAAAAUklGRkgAAABXRUJQVlA4TDwAAAAvP8ALEA8QEfMfgnEkKW4W6pz8hkAohEbu8u4f0f8JwGdb8xQK4UYIfpRt5WmkpRBXkMkFv8tkadV063o=")
 size_override = Vector2(64, 48)
@@ -67,8 +64,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8b62s"]
 size = Vector2(6, 0.5)
 
-[node name="Legs" type="CollisionShape2D" unique_id=1195055465]
-shape = SubResource("RectangleShape2D_q3lc8")
+[node name="Legs" type="CollisionPolygon2D" unique_id=1812828445]
 script = ExtResource("1_8b62s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2075797054]

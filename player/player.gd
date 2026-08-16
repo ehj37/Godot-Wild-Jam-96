@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const _BASE_MOVE_SPEED: float = 50.0
 const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 2.0
-const _GRAVITY: float = 800.0
+const _GRAVITY: float = 600.0
 const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
 
 var _charging: bool = false
@@ -24,13 +24,8 @@ func _physics_process(delta: float) -> void:
 			_charging = false
 			_set_legs_to_idle(_all_legs)
 		else:
-			if has_overlapping_down:
-				_animation_player.play("charge")
-				_charging = true
-			else:
-				# TODO: Play a sound to show that the input was recognized but
-				# the charge wasn't allowed.
-				pass
+			_animation_player.play("charge")
+			_charging = true
 
 	var movement_inputs: Array = ["move_right", "move_left"]
 	for movement_input: String in movement_inputs:
@@ -84,7 +79,10 @@ func _physics_process(delta: float) -> void:
 
 		if charge_direction.is_zero_approx():
 			if !input_movement_direction.is_zero_approx():
-				velocity.x = input_movement_direction.x * _BASE_MOVE_SPEED
+				if input_movement_direction.x > 0:
+					velocity.x = max(input_movement_direction.x * _BASE_MOVE_SPEED, velocity.x)
+				else:
+					velocity.x = min(input_movement_direction.x * _BASE_MOVE_SPEED, velocity.x)
 
 			velocity.y += _GRAVITY * delta
 		else:
