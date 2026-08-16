@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b3wijj4l8ssyj"]
+
+[ext_resource type="Script" uid="uid://dd5642b3b57q5" path="res://dialog_area/dialog_area.gd" id="1_3a4wd"]
+[ext_resource type="FontFile" uid="uid://cm0y8hjk01myl" path="res://arne.png" id="2_coo5p"]
+
+[node name="DialogArea" type="Area2D" unique_id=150746566]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("1_3a4wd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1340156224]
+
+[node name="InteractLabel" type="RichTextLabel" parent="." unique_id=1970447618]
+clip_contents = false
+offset_top = -6.0
+offset_right = 40.0
+offset_bottom = 34.0
+theme_override_fonts/normal_font = ExtResource("2_coo5p")
+theme_override_font_sizes/normal_font_size = 6
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0 connected=1]E[/wave]"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

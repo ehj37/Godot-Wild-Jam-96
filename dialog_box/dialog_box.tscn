@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://3qccsm8c7aon"]
+
+[ext_resource type="Theme" uid="uid://c1fmbvl73r282" path="res://bzb.tres" id="1_sr8h0"]
+[ext_resource type="Script" uid="uid://krrg7phdd1xm" path="res://dialog_box/dialog_box.gd" id="2_pn1ye"]
+
+[node name="DialogBox" type="HBoxContainer" unique_id=1999337793]
+offset_right = 200.0
+offset_bottom = 56.0
+size_flags_vertical = 0
+theme = ExtResource("1_sr8h0")
+script = ExtResource("2_pn1ye")
+text = "Fishwishdish"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2130195975]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2118044805]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=2109305270]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=806713560]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+visible_characters_behavior = 1
+
+[node name="ContinueLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1667054761]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=]...[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+
+[node name="FinishLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1612839007]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "[wave amp=10.0 freq=5.0 connected=]x[/wave]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2

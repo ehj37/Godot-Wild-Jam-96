@@ -1,0 +1,33 @@
+[gd_scene format=4 uid="uid://dg16dd330cfd"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ogltj"]
+_data = PackedByteArray("AAADAAUAAAABAAAACAAAAEAAAABQAAAAUklGRkgAAABXRUJQVlA4TDwAAAAvB8APECcwCGraNmBTvSeB/hUIkCkNQkSY/wD4LagVFDWSwhzFwAUHYKAowL85vhH974EDV5kb5BjQ79I=")
+size_override = Vector2(8, 64)
+
+[node name="Ladder" type="Node2D" unique_id=1125013005]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1538053348]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_ogltj")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://ladder/ladder.aseprite",
+"source_uid": 1393624937780948469
+}
+metadata/_aseprite_wizard_source_file_hash_ = "cc1e53faaae584741c69dbd61fe379e7"

@@ -120,3 +120,6 @@ MarginContainer/constants/margin_left = 2
 MarginContainer/constants/margin_right = 2
 MarginContainer/constants/margin_top = 2
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_qn6bf")
+RichTextLabel/constants/line_separation = 1
+RichTextLabel/font_sizes/normal_font_size = 6
+RichTextLabel/fonts/normal_font = ExtResource("1_f6tkd")
