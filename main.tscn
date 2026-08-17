@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b3wijj4l8ssyj" path="res://dialog_area/dialog_area.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://3qccsm8c7aon" path="res://dialog_box/dialog_box.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://irvglxeksb3h" path="res://test_npc/test_npc.tscn" id="10_4c57u"]
+[ext_resource type="PackedScene" uid="uid://i4xsd3yav1k0" path="res://debug_menu/debug_menu.tscn" id="11_efxa6"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -33,6 +34,10 @@ point_count = 2
 size = Vector2(56, 20)
 
 [node name="Main" type="Node2D" unique_id=1554694179]
+
+[node name="DebugMenu" parent="." unique_id=651549304 node_paths=PackedStringArray("player", "player_camera") instance=ExtResource("11_efxa6")]
+player = NodePath("../Player")
+player_camera = NodePath("../Camera2D")
 
 [node name="Ladder" parent="." unique_id=1125013005 instance=ExtResource("1_kek77")]
 position = Vector2(104, 0)

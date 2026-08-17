@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://i4xsd3yav1k0"]
+
+[ext_resource type="Script" uid="uid://b6pefo2t5x51s" path="res://debug_menu/debug_menu.gd" id="1_hbiib"]
+[ext_resource type="Theme" uid="uid://c1fmbvl73r282" path="res://bzb.tres" id="1_manlv"]
+
+[node name="DebugMenu" type="CanvasLayer" unique_id=651549304]
+visible = false
+script = ExtResource("1_hbiib")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1799946282]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 93.0
+offset_bottom = 45.0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=648888586]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="NoLegsButton" type="Button" parent="VBoxContainer/PanelContainer" unique_id=277088116]
+layout_mode = 2
+text = "NO LEGS"
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer" unique_id=1576230807]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="DButton" type="Button" parent="VBoxContainer/PanelContainer2" unique_id=100228114]
+layout_mode = 2
+text = "D"
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer" unique_id=1090848481]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="DRButton" type="Button" parent="VBoxContainer/PanelContainer3" unique_id=303877567]
+layout_mode = 2
+text = "D/R"
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer" unique_id=1840357531]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="DRUButton" type="Button" parent="VBoxContainer/PanelContainer4" unique_id=1969262092]
+layout_mode = 2
+text = "D/R/U"
+
+[node name="PanelContainer5" type="PanelContainer" parent="VBoxContainer" unique_id=164088350]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="DRULButton" type="Button" parent="VBoxContainer/PanelContainer5" unique_id=366919178]
+layout_mode = 2
+text = "D/R/U/L"
+
+[node name="PanelContainer6" type="PanelContainer" parent="VBoxContainer" unique_id=1562366203]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="CameraZoomInButton" type="Button" parent="VBoxContainer/PanelContainer6" unique_id=1648680724]
+layout_mode = 2
+text = "ZOOM IN"
+
+[node name="PanelContainer7" type="PanelContainer" parent="VBoxContainer" unique_id=1972240190]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="CameraZoomOutButton" type="Button" parent="VBoxContainer/PanelContainer7" unique_id=1644473420]
+layout_mode = 2
+text = "ZOOM OUT"
+
+[connection signal="pressed" from="VBoxContainer/PanelContainer/NoLegsButton" to="." method="_on_no_legs_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer2/DButton" to="." method="_on_d_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer3/DRButton" to="." method="_on_dr_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer4/DRUButton" to="." method="_on_dru_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer5/DRULButton" to="." method="_on_drul_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer6/CameraZoomInButton" to="." method="_on_camera_zoom_in_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer7/CameraZoomOutButton" to="." method="_on_camera_zoom_out_button_pressed"]

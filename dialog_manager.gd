@@ -18,6 +18,10 @@ func unregister(dialog_area: DialogArea) -> void:
 	_update_focused_dialog_area()
 
 
+func dialog_active() -> bool:
+	return _dialog_box_queue.size() > 0
+
+
 func _process(_delta: float) -> void:
 	var in_dialog: bool = _dialog_box_queue.size() > 0
 	if in_dialog:
