@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cb1r1oomkej6w"]
+
+[ext_resource type="Script" uid="uid://y0a7j6cm63nh" path="res://moving_platform/moving_platform.gd" id="1_y1tin"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72jam"]
+size = Vector2(8, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1tin"]
+size = Vector2(8, 8)
+
+[node name="TetronimoMovingPlatform" type="Path2D" unique_id=49274952]
+script = ExtResource("1_y1tin")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1645244039]
+position = Vector2(-8, 8)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D" unique_id=463073738]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=1152813766]
+position = Vector2(-8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1976847956]
+position = Vector2(-4, -4)
+shape = SubResource("RectangleShape2D_72jam")
+
+[node name="ColorRect" type="ColorRect" parent="AnimatableBody2D" unique_id=883505744]
+offset_left = -8.0
+offset_top = -16.0
+offset_bottom = 8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1981904644]
+position = Vector2(4, -12)
+shape = SubResource("RectangleShape2D_y1tin")
+
+[node name="ColorRect2" type="ColorRect" parent="AnimatableBody2D" unique_id=228958043]
+offset_top = -16.0
+offset_right = 8.0
+offset_bottom = -8.0
+metadata/_edit_use_anchors_ = true

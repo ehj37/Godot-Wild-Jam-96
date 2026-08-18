@@ -43,3 +43,15 @@ func _on_camera_zoom_in_button_pressed() -> void:
 
 func _on_camera_zoom_out_button_pressed() -> void:
 	player_camera.zoom -= Vector2.ONE
+
+
+func _on_slow_button_pressed() -> void:
+	Engine.time_scale = 0.25
+
+
+func _on_normal_speed_button_pressed() -> void:
+	Engine.time_scale = 1.0
+
+
+func _on_fast_speed_button_pressed() -> void:
+	Engine.time_scale = 2.0

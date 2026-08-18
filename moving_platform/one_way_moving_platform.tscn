@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://baek25rmv4v86"]
+
+[ext_resource type="Script" uid="uid://y0a7j6cm63nh" path="res://moving_platform/moving_platform.gd" id="1_okxpp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra055"]
+size = Vector2(24, 2)
+
+[node name="OneWayMovingPlatform" type="Path2D" unique_id=786247259]
+script = ExtResource("1_okxpp")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1190404539]
+position = Vector2(-8, 8)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D" unique_id=484065100]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=60734266]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1571917728]
+position = Vector2(12, -1)
+shape = SubResource("RectangleShape2D_ra055")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="AnimatableBody2D" unique_id=970528166]
+offset_top = -2.0
+offset_right = 24.0
+metadata/_edit_use_anchors_ = true

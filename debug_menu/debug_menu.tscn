@@ -4,75 +4,107 @@
 [ext_resource type="Theme" uid="uid://c1fmbvl73r282" path="res://bzb.tres" id="1_manlv"]
 
 [node name="DebugMenu" type="CanvasLayer" unique_id=651549304]
-visible = false
 script = ExtResource("1_hbiib")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1799946282]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1111495895]
 offset_left = 5.0
-offset_top = 5.0
-offset_right = 93.0
-offset_bottom = 45.0
+offset_top = 4.0
+offset_right = 105.0
+offset_bottom = 140.0
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=648888586]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1799946282]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=648888586]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="NoLegsButton" type="Button" parent="VBoxContainer/PanelContainer" unique_id=277088116]
+[node name="NoLegsButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer" unique_id=277088116]
 layout_mode = 2
 text = "NO LEGS"
 
-[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer" unique_id=1576230807]
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1576230807]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="DButton" type="Button" parent="VBoxContainer/PanelContainer2" unique_id=100228114]
+[node name="DButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer2" unique_id=100228114]
 layout_mode = 2
 text = "D"
 
-[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer" unique_id=1090848481]
+[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1090848481]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="DRButton" type="Button" parent="VBoxContainer/PanelContainer3" unique_id=303877567]
+[node name="DRButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer3" unique_id=303877567]
 layout_mode = 2
 text = "D/R"
 
-[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer" unique_id=1840357531]
+[node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1840357531]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="DRUButton" type="Button" parent="VBoxContainer/PanelContainer4" unique_id=1969262092]
+[node name="DRUButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer4" unique_id=1969262092]
 layout_mode = 2
 text = "D/R/U"
 
-[node name="PanelContainer5" type="PanelContainer" parent="VBoxContainer" unique_id=164088350]
+[node name="PanelContainer5" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=164088350]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="DRULButton" type="Button" parent="VBoxContainer/PanelContainer5" unique_id=366919178]
+[node name="DRULButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer5" unique_id=366919178]
 layout_mode = 2
 text = "D/R/U/L"
 
-[node name="PanelContainer6" type="PanelContainer" parent="VBoxContainer" unique_id=1562366203]
+[node name="PanelContainer6" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1562366203]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="CameraZoomInButton" type="Button" parent="VBoxContainer/PanelContainer6" unique_id=1648680724]
+[node name="CameraZoomInButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer6" unique_id=1648680724]
 layout_mode = 2
 text = "ZOOM IN"
 
-[node name="PanelContainer7" type="PanelContainer" parent="VBoxContainer" unique_id=1972240190]
+[node name="PanelContainer7" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1972240190]
 layout_mode = 2
 theme = ExtResource("1_manlv")
 
-[node name="CameraZoomOutButton" type="Button" parent="VBoxContainer/PanelContainer7" unique_id=1644473420]
+[node name="CameraZoomOutButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer7" unique_id=1644473420]
 layout_mode = 2
 text = "ZOOM OUT"
 
-[connection signal="pressed" from="VBoxContainer/PanelContainer/NoLegsButton" to="." method="_on_no_legs_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer2/DButton" to="." method="_on_d_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer3/DRButton" to="." method="_on_dr_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer4/DRUButton" to="." method="_on_dru_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer5/DRULButton" to="." method="_on_drul_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer6/CameraZoomInButton" to="." method="_on_camera_zoom_in_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer7/CameraZoomOutButton" to="." method="_on_camera_zoom_out_button_pressed"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1853851730]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=1210583054]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="SlowButton" type="Button" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=524978582]
+layout_mode = 2
+text = "SLOW"
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=1658116725]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="NormalSpeedButton" type="Button" parent="HBoxContainer/VBoxContainer2/PanelContainer2" unique_id=401896163]
+layout_mode = 2
+text = "NORMAL"
+
+[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=2077623651]
+layout_mode = 2
+theme = ExtResource("1_manlv")
+
+[node name="FastSpeedButton" type="Button" parent="HBoxContainer/VBoxContainer2/PanelContainer3" unique_id=1589304947]
+layout_mode = 2
+text = "FAST"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer/NoLegsButton" to="." method="_on_no_legs_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer2/DButton" to="." method="_on_d_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer3/DRButton" to="." method="_on_dr_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer4/DRUButton" to="." method="_on_dru_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer5/DRULButton" to="." method="_on_drul_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer6/CameraZoomInButton" to="." method="_on_camera_zoom_in_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer7/CameraZoomOutButton" to="." method="_on_camera_zoom_out_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/PanelContainer/SlowButton" to="." method="_on_slow_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/PanelContainer2/NormalSpeedButton" to="." method="_on_normal_speed_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/PanelContainer3/FastSpeedButton" to="." method="_on_fast_speed_button_pressed"]

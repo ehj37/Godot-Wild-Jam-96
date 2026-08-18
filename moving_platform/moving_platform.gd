@@ -10,6 +10,12 @@ const _SPEED: float = 30.0
 @export var movement_mode: MovementMode = MovementMode.BACK_AND_FORTH
 @export var is_moving: bool = true
 @export var making_positive_progress: bool = true
+@export var platform_rotation: int:
+	set(new_value):
+		platform_rotation = wrapi(new_value, 0, 360)
+		var remote_transform: RemoteTransform2D = $PathFollow2D/RemoteTransform2D
+		remote_transform.rotation_degrees = platform_rotation
+
 @export_range(0, 1.0) var initial_progress_ratio: float = 0.0:
 	set(new_value):
 		initial_progress_ratio = new_value
@@ -32,6 +38,10 @@ func start() -> void:
 
 func flip_direction() -> void:
 	making_positive_progress = !making_positive_progress
+
+
+func rotate_cw() -> void:
+	platform_rotation += 90
 
 
 func _physics_process(delta: float) -> void:

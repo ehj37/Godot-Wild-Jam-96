@@ -4,7 +4,8 @@ extends CharacterBody2D
 
 enum LegState { NONE, DOWN, DOWN_RIGHT, DOWN_RIGHT_UP, DOWN_RIGHT_UP_LEFT }
 
-const _BASE_MOVE_SPEED: float = 50.0
+const _BASE_MOVE_SPEED: float = 60.0
+const _SURFACE_NORMAL_OPPOSITE_SPEED: float = 40.0
 const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 2.0
 const _GRAVITY: float = 600.0
 const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
@@ -34,6 +35,10 @@ var _pressed_movement_inputs: Array[String]
 
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("reset"):
+		_reset()
+		return
+
 	var movement_inputs: Array = ["move_right", "move_left"]
 	for movement_input: String in movement_inputs:
 		if Input.is_action_just_pressed(movement_input):
@@ -102,7 +107,15 @@ func _physics_process(delta: float) -> void:
 				(_CHARGE_MOVEMENT_INPUT_INFLUENCE * input_movement_direction + charge_direction)
 				. normalized()
 			)
-			velocity = move_direction * _CHARGE_MOVE_SPEED
+			# Meant to make the player "stick" to moving surfaces
+			var surface_glue_velocity: Vector2 = (
+				-charging_legs.get_surface_direction() * _SURFACE_NORMAL_OPPOSITE_SPEED
+			)
+			velocity = move_direction * _CHARGE_MOVE_SPEED + surface_glue_velocity
+			if _flipped:
+				velocity += move_direction.rotated(-90) * 50
+			else:
+				velocity += move_direction.rotated(90) * 50
 		else:
 			# Churn the bottom legs if charging in mid-air.
 			_set_legs_to_idle(_all_legs.filter(func(l: PlayerLegs) -> bool: return l != _legs_down))
@@ -185,10 +198,7 @@ func _reset() -> void:
 	# the common case is that the respawn point is on the same screen.
 
 
-func _on_squished_detector_body_entered(body: Node2D) -> void:
-	if body is OneWayPlatforms:
-		return
-
+func _on_squished_detector_body_entered(_body: Node2D) -> void:
 	_reset()
 
 
