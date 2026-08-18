@@ -143,6 +143,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	ScreenManager.update_from_player_position(global_position)
+
 
 func _ready() -> void:
 	_update_legs()
@@ -170,3 +172,25 @@ func _update_legs() -> void:
 	for legs: PlayerLegs in unowned_legs:
 		legs.visible = false
 		legs.disabled = true
+
+
+func _reset() -> void:
+	var respawn_position: Vector2 = ScreenManager.current_respawn_position()
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	_charging = false
+	ScreenManager.update_from_player_position(global_position)
+	# TODO: Force reset the current screen
+	# May not be strictly necessary if the respawn point changed screens, but
+	# the common case is that the respawn point is on the same screen.
+
+
+func _on_squished_detector_body_entered(body: Node2D) -> void:
+	if body is OneWayPlatforms:
+		return
+
+	_reset()
+
+
+func _on_hurtbox_body_entered(_body: Node2D) -> void:
+	_reset()

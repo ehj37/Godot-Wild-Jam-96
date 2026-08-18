@@ -18,6 +18,7 @@ func _ready() -> void:
 
 func _on_no_legs_button_pressed() -> void:
 	player.leg_state = Player.LegState.NONE
+	player._charging = false
 
 
 func _on_d_button_pressed() -> void:
