@@ -8,7 +8,7 @@ size = Vector2(8, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1tin"]
 size = Vector2(8, 8)
 
-[node name="TetronimoMovingPlatform" type="Path2D" unique_id=49274952]
+[node name="TetronimoMovingPlatform" type="Path2D" unique_id=49274952 groups=["resettable"]]
 script = ExtResource("1_y1tin")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1645244039]

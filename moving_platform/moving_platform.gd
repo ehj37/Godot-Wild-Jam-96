@@ -10,7 +10,7 @@ const _SPEED: float = 30.0
 @export var movement_mode: MovementMode = MovementMode.BACK_AND_FORTH
 @export var is_moving: bool = true
 @export var making_positive_progress: bool = true
-@export var platform_rotation: int:
+@export var platform_rotation: int = 0:
 	set(new_value):
 		platform_rotation = wrapi(new_value, 0, 360)
 		var remote_transform: RemoteTransform2D = $PathFollow2D/RemoteTransform2D
@@ -26,6 +26,18 @@ const _SPEED: float = 30.0
 var _progress_ratio_speed: float
 
 @onready var _path_follow: PathFollow2D = $PathFollow2D
+# Initial values for reset
+@onready var _initial_is_moving: bool = is_moving
+@onready var _initial_making_positive_progress: bool = making_positive_progress
+@onready var _initial_platform_rotation: int = platform_rotation
+@onready var _initial_progress_ratio: float = initial_progress_ratio
+
+
+func reset() -> void:
+	is_moving = _initial_is_moving
+	making_positive_progress = _initial_making_positive_progress
+	platform_rotation = _initial_platform_rotation
+	_path_follow.progress_ratio = _initial_progress_ratio
 
 
 func stop() -> void:

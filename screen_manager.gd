@@ -15,6 +15,14 @@ func screen_coords_to_global_position(screen_coords: Vector2i) -> Vector2:
 	return Vector2(screen_coords.x * 320, screen_coords.y * 180)
 
 
+func reset_current_screen() -> void:
+	var current_screen: Screen = _screens.get(_current_screen_coords)
+	if current_screen:
+		current_screen.reset()
+	else:
+		push_warning("No screen at " + str(_current_screen_coords) + ", nothing to reset.")
+
+
 func current_respawn_position() -> Vector2:
 	var current_screen: Screen = _screens[_current_screen_coords]
 	if !current_screen:

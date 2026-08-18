@@ -15,7 +15,8 @@ rotates = false
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D" unique_id=484065100]
 remote_path = NodePath("../../AnimatableBody2D")
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=60734266]
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=60734266 groups=["resettable"]]
+position = Vector2(-8, 8)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1571917728]

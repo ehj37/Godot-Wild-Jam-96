@@ -24,6 +24,7 @@ var _flipped: bool = false:
 
 var _charging: bool = false
 var _pressed_movement_inputs: Array[String]
+var _squished_on_frame: bool = false
 
 @onready var _ghost_fill_material: ShaderMaterial = preload("res://ghost_fill.tres")
 @onready var _sprite: Sprite2D = $Sprite2D
@@ -36,6 +37,8 @@ var _pressed_movement_inputs: Array[String]
 
 
 func _physics_process(delta: float) -> void:
+	_squished_on_frame = false
+
 	if Input.is_action_just_pressed("reset"):
 		_reset()
 		return
@@ -223,14 +226,26 @@ func _reset() -> void:
 	velocity = Vector2.ZERO
 	_charging = false
 	ScreenManager.update_from_player_position(global_position)
-	# TODO: Force reset the current screen
 	# May not be strictly necessary if the respawn point changed screens, but
 	# the common case is that the respawn point is on the same screen.
+	ScreenManager.reset_current_screen()
+
+	ScreenFlashLayer.flash()
+	force_update_transform()
 
 
 func _on_squished_detector_body_entered(_body: Node2D) -> void:
-	_spawn_ghost()
-	_reset()
+	# It may be the case while two bodies sandwiching the player may both enter
+	# the squished detector at the same time.
+	# The _squished_on_frame variable is reset every physics frame, and ensures
+	# that this ghost/reset code only gets hit once.
+	# Without _squished_on_frame, the player would spawn a ghost and get their
+	# position reset, then subsequently have another ghost spawn at their reset
+	# position.
+	if !_squished_on_frame:
+		_spawn_ghost()
+		_reset()
+		_squished_on_frame = true
 
 
 func _on_hurtbox_body_entered(_body: Node2D) -> void:

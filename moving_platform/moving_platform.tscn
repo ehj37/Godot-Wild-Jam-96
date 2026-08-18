@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hueig"]
 size = Vector2(8, 24)
 
-[node name="MovingPlatform" type="Path2D" unique_id=117322211]
+[node name="MovingPlatform" type="Path2D" unique_id=117322211 groups=["resettable"]]
 script = ExtResource("1_perj1")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=261023387]

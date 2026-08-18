@@ -13,6 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://i4xsd3yav1k0" path="res://debug_menu/debug_menu.tscn" id="11_efxa6"]
 [ext_resource type="PackedScene" uid="uid://baek25rmv4v86" path="res://moving_platform/one_way_moving_platform.tscn" id="12_dg77c"]
 
+[sub_resource type="Curve2D" id="Curve2D_w48qg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0)
+}
+point_count = 2
+
 [sub_resource type="Curve2D" id="Curve2D_5vw27"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -32)
@@ -215,6 +221,12 @@ respawn_point = NodePath("RespawnPoint")
 [node name="RespawnPoint" type="Marker2D" parent="Screen_01_01" unique_id=1615813051]
 position = Vector2(77, 76)
 
+[node name="MovingPlatform" parent="Screen_01_01" unique_id=117322211 instance=ExtResource("4_1bvp3")]
+position = Vector2(176, 44)
+curve = SubResource("Curve2D_w48qg")
+platform_rotation = 90
+initial_progress_ratio = 0.5
+
 [node name="Screen_01_02" type="Node2D" parent="." unique_id=1402523947 node_paths=PackedStringArray("respawn_point")]
 position = Vector2(320, 360)
 script = ExtResource("9_kek77")
@@ -343,7 +355,7 @@ respawn_point = NodePath("RespawnPoint")
 [node name="RespawnPoint" type="Marker2D" parent="Screen_02_01" unique_id=552179611]
 position = Vector2(48, 44)
 
-[node name="MovingPlatform" parent="Screen_02_01" unique_id=117322211 instance=ExtResource("4_1bvp3")]
+[node name="MovingPlatform" parent="Screen_02_01" unique_id=597707575 instance=ExtResource("4_1bvp3")]
 position = Vector2(192, 148)
 curve = SubResource("Curve2D_5vw27")
 movement_mode = 1

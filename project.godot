@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DialogManager="*uid://hjo87mhcd4b7"
 ScreenManager="*uid://btp8hapup245p"
+ScreenFlashLayer="*uid://bn4srsv37v5bn"
 
 [debug]
 
@@ -39,6 +40,10 @@ window/stretch/scale_mode="integer"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+
+[global_group]
+
+resettable=""
 
 [gui]
 
