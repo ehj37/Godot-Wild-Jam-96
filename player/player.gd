@@ -25,6 +25,7 @@ var _flipped: bool = false:
 var _charging: bool = false
 var _pressed_movement_inputs: Array[String]
 
+@onready var _ghost_fill_material: ShaderMaterial = preload("res://ghost_fill.tres")
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _legs_down: PlayerLegs = $LegsDown
@@ -187,6 +188,35 @@ func _update_legs() -> void:
 		legs.disabled = true
 
 
+func _spawn_ghost() -> void:
+	var ghost: Node2D = Node2D.new()
+	ghost.global_position = global_position
+	owner.add_child(ghost)
+	var duplicate_sprite: Sprite2D = _sprite.duplicate()
+	duplicate_sprite.use_parent_material = true
+	for legs: PlayerLegs in _all_legs:
+		if !legs.visible:
+			continue
+
+		var duplicate_legs_sprite: Sprite2D = legs.sprite.duplicate()
+		duplicate_legs_sprite.global_position += Vector2(0, -1)
+		duplicate_legs_sprite.rotation = legs.rotation
+		duplicate_legs_sprite.use_parent_material = true
+		ghost.add_child(duplicate_legs_sprite)
+
+	ghost.add_child(duplicate_sprite)
+	ghost.material = _ghost_fill_material
+
+	var ghost_alpha_tween: Tween = ghost.create_tween()
+	(
+		ghost_alpha_tween
+		. tween_property(ghost, "modulate:a", 0.0, 2.0)
+		. set_ease(Tween.EASE_OUT)
+		. set_trans(Tween.TRANS_QUART)
+	)
+	ghost_alpha_tween.finished.connect(func() -> void: ghost.queue_free())
+
+
 func _reset() -> void:
 	var respawn_position: Vector2 = ScreenManager.current_respawn_position()
 	global_position = respawn_position
@@ -199,8 +229,10 @@ func _reset() -> void:
 
 
 func _on_squished_detector_body_entered(_body: Node2D) -> void:
+	_spawn_ghost()
 	_reset()
 
 
 func _on_hurtbox_body_entered(_body: Node2D) -> void:
+	_spawn_ghost()
 	_reset()

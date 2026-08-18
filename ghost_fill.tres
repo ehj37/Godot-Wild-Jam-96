@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bomyr32hiahq5"]
+
+[ext_resource type="Shader" uid="uid://diyvvlc1pipse" path="res://color_fill.gdshader" id="1_cct1m"]
+
+[resource]
+shader = ExtResource("1_cct1m")
+shader_parameter/color = Color(1, 0, 1, 1)
