@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bpwi6djhmspr6"]
+
+[ext_resource type="Script" uid="uid://ctyupheiso67r" path="res://shaky_light/shaky_light.gd" id="1_cgd0l"]
+
+[node name="ShakyLight" type="PointLight2D" unique_id=1111446967]
+script = ExtResource("1_cgd0l")

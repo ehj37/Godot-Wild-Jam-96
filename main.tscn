@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://ggwktjcvgd26" path="res://pressure_button/pressure_button.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dj2mstnhtnrk" path="res://spikes/spikes.tscn" id="7_4c57u"]
 [ext_resource type="Script" uid="uid://dnduvx2duimjf" path="res://screen.gd" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://irvglxeksb3h" path="res://test_npc/test_npc.tscn" id="10_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://cb1r1oomkej6w" path="res://moving_platform/tetronimo_moving_platform.tscn" id="11_dg77c"]
 [ext_resource type="PackedScene" uid="uid://i4xsd3yav1k0" path="res://debug_menu/debug_menu.tscn" id="11_efxa6"]
+[ext_resource type="PackedScene" uid="uid://b3wijj4l8ssyj" path="res://dialog_area/dialog_area.tscn" id="11_vivmo"]
+[ext_resource type="PackedScene" uid="uid://3qccsm8c7aon" path="res://dialog_box/dialog_box.tscn" id="12_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://baek25rmv4v86" path="res://moving_platform/one_way_moving_platform.tscn" id="12_dg77c"]
 
 [sub_resource type="Curve2D" id="Curve2D_w48qg"]
@@ -18,6 +21,9 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0)
 }
 point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yaehf"]
+size = Vector2(74, 26)
 
 [sub_resource type="Curve2D" id="Curve2D_5vw27"]
 _data = {
@@ -226,6 +232,25 @@ position = Vector2(176, 44)
 curve = SubResource("Curve2D_w48qg")
 platform_rotation = 90
 initial_progress_ratio = 0.5
+
+[node name="TestNpc" parent="Screen_01_01" unique_id=147531905 instance=ExtResource("10_ycdy4")]
+position = Vector2(216, 103)
+
+[node name="DialogArea" parent="Screen_01_01" unique_id=150746566 node_paths=PackedStringArray("dialog_boxes") instance=ExtResource("11_vivmo")]
+position = Vector2(224, 92)
+dialog_boxes = [NodePath("DialogBox")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Screen_01_01/DialogArea" unique_id=2011841543]
+position = Vector2(-5, 3)
+shape = SubResource("RectangleShape2D_yaehf")
+
+[node name="DialogBox" parent="Screen_01_01/DialogArea" unique_id=1999337793 instance=ExtResource("12_2cqfq")]
+offset_left = -171.0
+offset_top = 49.0
+offset_right = 29.0
+offset_bottom = 105.0
+text = "my dog, he got three legs,
+but he can't run..."
 
 [node name="Screen_01_02" type="Node2D" parent="." unique_id=1402523947 node_paths=PackedStringArray("respawn_point")]
 position = Vector2(320, 360)

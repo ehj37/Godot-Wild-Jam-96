@@ -9,6 +9,7 @@ const _SURFACE_NORMAL_OPPOSITE_SPEED: float = 40.0
 const _CHARGE_MOVE_SPEED: float = _BASE_MOVE_SPEED * 2.0
 const _GRAVITY: float = 600.0
 const _CHARGE_MOVEMENT_INPUT_INFLUENCE: float = 0.5
+const _IDLE_ANIMATIONS: Array[String] = ["idle_1", "idle_2"]
 
 @export var leg_state: LegState:
 	set(new_value):
@@ -71,7 +72,7 @@ func _physics_process(delta: float) -> void:
 			_charging = true
 
 	if DialogManager.dialog_active():
-		_animation_player.play("idle")
+		_animation_player.play("listening")
 		_set_legs_to_idle(_all_legs)
 		velocity = Vector2.DOWN * _GRAVITY
 		_charging = false
@@ -155,8 +156,13 @@ func _physics_process(delta: float) -> void:
 			_animation_player.play("run")
 			_legs_down.play_run()
 		else:
-			_animation_player.play("idle")
-			_legs_down.play_idle()
+			if (
+				!_animation_player.is_playing()
+				|| !_IDLE_ANIMATIONS.has(_animation_player.current_animation)
+			):
+				var idle_animation: String = _IDLE_ANIMATIONS.pick_random()
+				_animation_player.play(idle_animation)
+				_legs_down.play_idle()
 
 	move_and_slide()
 

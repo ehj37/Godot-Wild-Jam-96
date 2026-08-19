@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dl20fgu0afmne" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://581titih5wnt" path="res://player/legs/legs.tscn" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://bpwi6djhmspr6" path="res://shaky_light/shaky_light.tscn" id="3_g1dw6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(6, 6)
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_rkbax"]
-_data = PackedByteArray("AAADAAUAAAABAAAAIAAAABAAAABMAAAAUklGRkQAAABXRUJQVlA4TDcAAAAvH8ADEB8gEEjyB1lzjfmP+Q/wAooiSY1GB1f+mMBOREQQIjEQFET0fwLYOwWd8A5cgSno/LEWAA==")
-size_override = Vector2(32, 16)
+_data = PackedByteArray("AAADAAUAAAABAAAAQAAAADAAAACSAAAAUklGRooAAABXRUJQVlA4TH4AAAAvP8ALECcgECD479BpQ0BQ5P9oAoEkmP2Jhpn/APCx9MAqsq02NAUkAjI4yPAEpFz/quidv4j+K3LbtmHGNel4BRtgPIDKHHCCOw7ijp9clmR+68AAY+j/jiDdf/ffrp/cfX7r7gO+if+OIMMDLmNEBKAitOFx/gC/dWCcwQA=")
+size_override = Vector2(64, 48)
 
 [sub_resource type="Animation" id="Animation_rkbax"]
 length = 0.4
@@ -23,11 +24,42 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [1, 1, 1, 1]
+"values": [10, 10, 10, 10]
 }
 
 [sub_resource type="Animation" id="Animation_g1dw6"]
-length = 0.1
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 5.1, 5.2, 5.3, 5.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_qjkh3"]
+length = 9.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8, 8.1, 9.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_g6k8r"]
+length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -61,7 +93,9 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qjkh3"]
 _data = {
 &"charge": SubResource("Animation_rkbax"),
-&"idle": SubResource("Animation_g1dw6"),
+&"idle_1": SubResource("Animation_g1dw6"),
+&"idle_2": SubResource("Animation_qjkh3"),
+&"listening": SubResource("Animation_g6k8r"),
 &"run": SubResource("Animation_yw30f")
 }
 
@@ -70,6 +104,19 @@ size = Vector2(4, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yw30f"]
 size = Vector2(6, 6)
+
+[sub_resource type="Gradient" id="Gradient_g1dw6"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.71428573, 0.92740047, 1)
+colors = PackedColorArray(1, 0.7019608, 0.15686275, 1, 0.6151827, 0.4167997, 4.813075e-07, 1, 0.2984095, 0.19379562, 7.219613e-08, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yw30f"]
+gradient = SubResource("Gradient_g1dw6")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.75, 0.25)
 
 [node name="Player" type="CharacterBody2D" unique_id=664991562]
 collision_layer = 128
@@ -84,7 +131,9 @@ shape = SubResource("RectangleShape2D_rkbax")
 texture_filter = 1
 position = Vector2(0, -5)
 texture = SubResource("PortableCompressedTexture2D_rkbax")
-hframes = 2
+hframes = 4
+vframes = 3
+frame = 11
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "output_section": true,
@@ -108,7 +157,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://player/player.aseprite",
 "source_uid": 5164210907105987590
 }
-metadata/_aseprite_wizard_source_file_hash_ = "8b034c4820b5b0387423c025a654400c"
+metadata/_aseprite_wizard_source_file_hash_ = "13f6bffa8e2c6ac02822ce6535d73f06"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1399049293]
 libraries/ = SubResource("AnimationLibrary_qjkh3")
@@ -147,6 +196,14 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1458520891]
 shape = SubResource("RectangleShape2D_yw30f")
+
+[node name="PlatformLight" parent="." unique_id=1111446967 instance=ExtResource("3_g1dw6")]
+position = Vector2(0, -5)
+energy = 3.0
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_yw30f")
 
 [connection signal="body_entered" from="SquishedDetector" to="." method="_on_squished_detector_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

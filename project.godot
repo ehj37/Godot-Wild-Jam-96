@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DialogManager="*uid://hjo87mhcd4b7"
 ScreenManager="*uid://btp8hapup245p"
 ScreenFlashLayer="*uid://bn4srsv37v5bn"
+ColorQuantizationLayer="*uid://c0cp743qfm4ha"
 
 [debug]
 

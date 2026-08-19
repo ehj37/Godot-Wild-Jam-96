@@ -11,7 +11,7 @@ func flash() -> void:
 	if is_instance_valid(_alpha_tween):
 		_alpha_tween.kill()
 
-	_color_rect.color.a = 0.5
+	_color_rect.color.a = 0.8
 
 	_alpha_tween = create_tween()
 	(

@@ -5,6 +5,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hueig"]
 size = Vector2(8, 24)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_perj1"]
+polygon = PackedVector2Array(0, 0, 0, -24, 8, -24, 8, 0)
+
 [node name="MovingPlatform" type="Path2D" unique_id=117322211 groups=["resettable"]]
 script = ExtResource("1_perj1")
 
@@ -24,3 +27,7 @@ shape = SubResource("RectangleShape2D_hueig")
 offset_top = -24.0
 offset_right = 8.0
 metadata/_edit_use_anchors_ = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatableBody2D" unique_id=553890331]
+occluder = SubResource("OccluderPolygon2D_perj1")
+occluder_light_mask = 2

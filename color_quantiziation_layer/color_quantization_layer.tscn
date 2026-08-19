@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c0cp743qfm4ha"]
+
+[ext_resource type="Shader" uid="uid://cym1g482kdpwe" path="res://color_quantiziation_layer/color_quantization.gdshader" id="1_57xm0"]
+[ext_resource type="Texture2D" uid="uid://dkpeayvo5xs4y" path="res://palette.png" id="2_kaalr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kaalr"]
+shader = ExtResource("1_57xm0")
+shader_parameter/palette = ExtResource("2_kaalr")
+
+[node name="ColorQuantizationLayer" type="CanvasLayer" unique_id=1868938480]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1653276916]
+material = SubResource("ShaderMaterial_kaalr")
+custom_minimum_size = Vector2(320, 180)
+offset_right = 40.0
+offset_bottom = 40.0
