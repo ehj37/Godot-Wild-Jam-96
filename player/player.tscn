@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(6, 6)
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_rkbax"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_g1dw6"]
 _data = PackedByteArray("AAADAAUAAAABAAAAQAAAADAAAACSAAAAUklGRooAAABXRUJQVlA4TH4AAAAvP8ALECcgECD479BpQ0BQ5P9oAoEkmP2Jhpn/APCx9MAqsq02NAUkAjI4yPAEpFz/quidv4j+K3LbtmHGNel4BRtgPIDKHHCCOw7ijp9clmR+68AAY+j/jiDdf/ffrp/cfX7r7gO+if+OIMMDLmNEBKAitOFx/gC/dWCcwQA=")
 size_override = Vector2(64, 48)
 
@@ -25,6 +25,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [10, 10, 10, 10]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_play_charge_step_sound_effect"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_g1dw6"]
@@ -89,6 +103,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 0, 0, 0]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_play_step_sound_effect"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qjkh3"]
 _data = {
@@ -130,10 +158,10 @@ shape = SubResource("RectangleShape2D_rkbax")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2046026144]
 texture_filter = 1
 position = Vector2(0, -5)
-texture = SubResource("PortableCompressedTexture2D_rkbax")
+texture = SubResource("PortableCompressedTexture2D_g1dw6")
 hframes = 4
 vframes = 3
-frame = 11
+frame = 10
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "output_section": true,
@@ -204,6 +232,9 @@ range_item_cull_mask = 2
 shadow_enabled = true
 shadow_item_cull_mask = 2
 texture = SubResource("GradientTexture2D_yw30f")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=473614741]
+current = true
 
 [connection signal="body_entered" from="SquishedDetector" to="." method="_on_squished_detector_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -25,6 +25,10 @@ const _SPEED: float = 30.0
 
 var _progress_ratio_speed: float
 
+@onready var _rotate_audio_stream: AudioStreamOggVorbis = preload("./sound_effects/rotate.ogg")
+@onready var _direction_change_audio_stream: AudioStreamOggVorbis = preload(
+	"./sound_effects/direction_change.ogg"
+)
 @onready var _path_follow: PathFollow2D = $PathFollow2D
 # Initial values for reset
 @onready var _initial_is_moving: bool = is_moving
@@ -49,10 +53,13 @@ func start() -> void:
 
 
 func flip_direction() -> void:
+	_play_direction_changed_sound_effect()
 	making_positive_progress = !making_positive_progress
 
 
 func rotate_cw() -> void:
+	SoundEffectManager.add_self_freeing_audio_stream_player(self, _rotate_audio_stream)
+
 	platform_rotation += 90
 
 
@@ -84,9 +91,11 @@ func _physics_process(delta: float) -> void:
 	if movement_mode == MovementMode.BACK_AND_FORTH:
 		# Flip direction
 		if making_positive_progress && updated_progress_ratio > 1.0:
+			_play_direction_changed_sound_effect()
 			making_positive_progress = false
 			updated_progress_ratio = 1.0 - fmod(updated_progress_ratio, 1.0)
 		elif !making_positive_progress && updated_progress_ratio < 0.0:
+			_play_direction_changed_sound_effect()
 			making_positive_progress = true
 			updated_progress_ratio = -fmod(updated_progress_ratio, 1.0)
 	elif movement_mode == MovementMode.STICKY:
@@ -103,3 +112,7 @@ func _ready() -> void:
 		var curve_length: float = curve.get_baked_length()
 		_progress_ratio_speed = _SPEED / curve_length
 		_path_follow.progress_ratio = initial_progress_ratio
+
+
+func _play_direction_changed_sound_effect() -> void:
+	SoundEffectManager.add_self_freeing_audio_stream_player(self, _direction_change_audio_stream)

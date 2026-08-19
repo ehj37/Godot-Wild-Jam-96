@@ -28,6 +28,10 @@ var _pressed_movement_inputs: Array[String]
 var _squished_on_frame: bool = false
 
 @onready var _ghost_fill_material: ShaderMaterial = preload("res://ghost_fill.tres")
+@onready var _step_audio_stream: AudioStreamOggVorbis = preload("./sound_effects/step.ogg")
+@onready
+var _charge_step_audio_stream: AudioStreamOggVorbis = preload("./sound_effects/charge_step.ogg")
+@onready var _air_step_audio_stream: AudioStreamOggVorbis = preload("./sound_effects/air_step.ogg")
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 @onready var _legs_down: PlayerLegs = $LegsDown
@@ -238,6 +242,20 @@ func _reset() -> void:
 
 	ScreenFlashLayer.flash()
 	force_update_transform()
+
+
+func _play_step_sound_effect() -> void:
+	if _get_owned_legs().has(_legs_down) && _legs_down.on_surface():
+		SoundEffectManager.add_self_freeing_audio_stream_player(self, _step_audio_stream)
+	else:
+		SoundEffectManager.add_self_freeing_audio_stream_player(self, _air_step_audio_stream)
+
+
+func _play_charge_step_sound_effect() -> void:
+	if _get_owned_legs().any(func(l: PlayerLegs) -> bool: return l.on_surface()):
+		SoundEffectManager.add_self_freeing_audio_stream_player(self, _charge_step_audio_stream)
+	else:
+		SoundEffectManager.add_self_freeing_audio_stream_player(self, _air_step_audio_stream)
 
 
 func _on_squished_detector_body_entered(_body: Node2D) -> void:

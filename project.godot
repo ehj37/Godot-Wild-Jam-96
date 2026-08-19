@@ -15,12 +15,17 @@ run/main_scene="uid://cqow47bch5ocs"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cxohewkdbecxp"
+
 [autoload]
 
 DialogManager="*uid://hjo87mhcd4b7"
 ScreenManager="*uid://btp8hapup245p"
 ScreenFlashLayer="*uid://bn4srsv37v5bn"
 ColorQuantizationLayer="*uid://c0cp743qfm4ha"
+SoundEffectManager="*uid://ckee8h6t3tn1m"
 
 [debug]
 
