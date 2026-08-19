@@ -41,6 +41,10 @@ var _charge_step_audio_stream: AudioStreamOggVorbis = preload("./sound_effects/c
 @onready var _all_legs: Array[PlayerLegs] = [_legs_down, _legs_right, _legs_up, _legs_left]
 
 
+func set_leg_state(new_leg_state: LegState) -> void:
+	leg_state = new_leg_state
+
+
 func _physics_process(delta: float) -> void:
 	_squished_on_frame = false
 

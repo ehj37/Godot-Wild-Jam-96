@@ -2,11 +2,26 @@ class_name DialogArea
 
 extends Area2D
 
+signal dialog_finished
+
 const _FADE_TWEEN_DURATION: float = 0.2
 
 @export var dialog_boxes: Array[DialogBox]
+@export var one_shot: bool = false
+@export var disabled: bool = false
 
 @onready var _interact_label: RichTextLabel = $InteractLabel
+
+
+func on_start() -> void:
+	monitoring = false
+
+
+func on_finish() -> void:
+	if !one_shot:
+		monitoring = true
+
+	dialog_finished.emit()
 
 
 func display_interact_label() -> void:
@@ -32,6 +47,8 @@ func _ready() -> void:
 		dialog_box.visible = false
 
 	_interact_label.visible = false
+	if disabled:
+		disable()
 
 
 func _on_body_entered(_body: Node2D) -> void:

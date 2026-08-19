@@ -20,7 +20,8 @@ const _TEXT_LABEL_PATH: String = "PanelContainer/MarginContainer/VBoxContainer/R
 var is_terminal: bool = true:
 	set(new_value):
 		is_terminal = new_value
-		_set_bottom_right_label()
+		if Engine.is_editor_hint():
+			_set_bottom_right_label()
 var _is_running: bool = false
 var _in_speed_mode: bool = false
 var _bottom_right_label: RichTextLabel
@@ -79,6 +80,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	visible = false
 	_text_label.text = text
 	_parsed_text_length = _text_label.get_parsed_text().length()
 	_set_bottom_right_label()

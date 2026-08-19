@@ -23,7 +23,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yaehf"]
-size = Vector2(74, 26)
+size = Vector2(44, 26)
 
 [sub_resource type="Curve2D" id="Curve2D_5vw27"]
 _data = {
@@ -234,23 +234,57 @@ platform_rotation = 90
 initial_progress_ratio = 0.5
 
 [node name="TestNpc" parent="Screen_01_01" unique_id=147531905 instance=ExtResource("10_ycdy4")]
-position = Vector2(216, 103)
+position = Vector2(106, 71)
 
-[node name="DialogArea" parent="Screen_01_01" unique_id=150746566 node_paths=PackedStringArray("dialog_boxes") instance=ExtResource("11_vivmo")]
-position = Vector2(224, 92)
-dialog_boxes = [NodePath("DialogBox")]
+[node name="DownLegsDialogArea" parent="Screen_01_01/TestNpc" unique_id=150746566 node_paths=PackedStringArray("dialog_boxes") instance=ExtResource("11_vivmo")]
+position = Vector2(8, -11)
+dialog_boxes = [NodePath("DialogBox"), NodePath("DialogBox2"), NodePath("DialogBox3")]
+one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Screen_01_01/DialogArea" unique_id=2011841543]
-position = Vector2(-5, 3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Screen_01_01/TestNpc/DownLegsDialogArea" unique_id=2011841543]
+position = Vector2(-20, 3)
 shape = SubResource("RectangleShape2D_yaehf")
 
-[node name="DialogBox" parent="Screen_01_01/DialogArea" unique_id=1999337793 instance=ExtResource("12_2cqfq")]
-offset_left = -171.0
-offset_top = 49.0
-offset_right = 29.0
-offset_bottom = 105.0
-text = "my dog, he got three legs,
-but he can't run..."
+[node name="DialogBox" parent="Screen_01_01/TestNpc/DownLegsDialogArea" unique_id=1999337793 instance=ExtResource("12_2cqfq")]
+visible = false
+offset_left = -9.0
+offset_top = -41.0
+offset_right = 191.0
+offset_bottom = 15.0
+text = "what's that? can't cross the gap without a running start?"
+
+[node name="DialogBox2" parent="Screen_01_01/TestNpc/DownLegsDialogArea" unique_id=1905711167 instance=ExtResource("12_2cqfq")]
+visible = false
+offset_left = -9.0
+offset_top = -41.0
+offset_right = 191.0
+offset_bottom = 22.0
+text = "here, take my legs, i'm not using them."
+
+[node name="DialogBox3" parent="Screen_01_01/TestNpc/DownLegsDialogArea" unique_id=1194102833 instance=ExtResource("12_2cqfq")]
+visible = false
+offset_left = -9.0
+offset_top = -41.0
+offset_right = 191.0
+offset_bottom = 22.0
+text = "try 'em out! press [color=yellow][wave amp=10.0 freq=5.0 connected=1]SPACE[/wave][/color] to charge across the gap."
+
+[node name="PostLegGivingDialogArea" parent="Screen_01_01/TestNpc" unique_id=206609475 node_paths=PackedStringArray("dialog_boxes") instance=ExtResource("11_vivmo")]
+position = Vector2(8, -11)
+dialog_boxes = [NodePath("DialogBox")]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Screen_01_01/TestNpc/PostLegGivingDialogArea" unique_id=479450476]
+position = Vector2(-20, 3)
+shape = SubResource("RectangleShape2D_yaehf")
+
+[node name="DialogBox" parent="Screen_01_01/TestNpc/PostLegGivingDialogArea" unique_id=1069728378 instance=ExtResource("12_2cqfq")]
+visible = false
+offset_left = -106.0
+offset_top = -54.0
+offset_right = 94.0
+offset_bottom = 2.0
+text = "legs, who needs 'em? not me!"
 
 [node name="Screen_01_02" type="Node2D" parent="." unique_id=1402523947 node_paths=PackedStringArray("respawn_point")]
 position = Vector2(320, 360)
@@ -2180,6 +2214,8 @@ respawn_point = NodePath("RespawnPoint")
 [node name="RespawnPoint" type="Marker2D" parent="Screen_15_15" unique_id=1773204892]
 position = Vector2(160, 90)
 
+[connection signal="dialog_finished" from="Screen_01_01/TestNpc/DownLegsDialogArea" to="Screen_01_01/TestNpc/PostLegGivingDialogArea" method="enable"]
+[connection signal="dialog_finished" from="Screen_01_01/TestNpc/DownLegsDialogArea" to="Player" method="set_leg_state" binds= [1]]
 [connection signal="pressed" from="Screen_02_01/PressureButton" to="Screen_02_01/MovingPlatform" method="flip_direction"]
 [connection signal="released" from="Screen_02_01/PressureButton" to="Screen_02_01/MovingPlatform" method="flip_direction"]
 [connection signal="pressed" from="Screen_02_01/PressureButton2" to="Screen_02_01/TetronimoMovingPlatform" method="rotate_cw"]

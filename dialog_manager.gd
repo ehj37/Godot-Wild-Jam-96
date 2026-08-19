@@ -1,6 +1,7 @@
 extends Node
 
 var _candidate_dialog_areas: Array[DialogArea]
+var _active_dialog_area: DialogArea
 var _dialog_box_queue: Array[DialogBox]
 
 
@@ -53,9 +54,11 @@ func _process(_delta: float) -> void:
 
 
 func _start_dialog() -> void:
-	var focused_dialog_area: DialogArea = _candidate_dialog_areas.back()
-	focused_dialog_area.hide_interact_label()
-	_dialog_box_queue = focused_dialog_area.dialog_boxes.duplicate()
+	_hide_interact_labels(_candidate_dialog_areas)
+
+	_active_dialog_area = _candidate_dialog_areas.back()
+	_active_dialog_area.on_start()
+	_dialog_box_queue = _active_dialog_area.dialog_boxes.duplicate()
 	assert(_dialog_box_queue.size() > 0, "Active dialog area has no dialog boxes.")
 
 	var active_dialog_box: DialogBox = _dialog_box_queue.front()
@@ -64,6 +67,7 @@ func _start_dialog() -> void:
 
 
 func _end_dialog() -> void:
+	_active_dialog_area.on_finish()
 	_update_focused_dialog_area()
 
 
