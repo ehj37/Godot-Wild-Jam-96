@@ -28,6 +28,9 @@ extends Node2D
 		if new_value:
 			var screens: Array = find_children("*", "Screen")
 			for screen: Screen in screens:
+				if screen.find_child("RespawnPoint"):
+					continue
+
 				var respawn_point: Marker2D = Marker2D.new()
 				screen.add_child(respawn_point)
 				respawn_point.owner = self

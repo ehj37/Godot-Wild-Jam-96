@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ra055"]
 size = Vector2(24, 2)
 
-[node name="OneWayMovingPlatform" type="Path2D" unique_id=786247259]
+[node name="OneWayMovingPlatform" type="Path2D" unique_id=786247259 groups=["resettable"]]
 script = ExtResource("1_okxpp")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1190404539]
@@ -15,7 +15,7 @@ rotates = false
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D" unique_id=484065100]
 remote_path = NodePath("../../AnimatableBody2D")
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=60734266 groups=["resettable"]]
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=60734266]
 position = Vector2(-8, 8)
 collision_layer = 2
 
